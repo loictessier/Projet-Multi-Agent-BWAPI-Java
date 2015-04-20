@@ -1,7 +1,7 @@
 import bwapi.*;
 import bwta.BWTA;
 
-public class TestBot1 extends DefaultBWListener {
+public class AgentControlleur extends DefaultBWListener {
 
     private Mirror mirror = new Mirror();
 
@@ -74,6 +74,6 @@ public class TestBot1 extends DefaultBWListener {
     }
 
     public static void main(String[] args) {
-        new TestBot1().run();
+        new AgentControlleur().run();
     }
 }
