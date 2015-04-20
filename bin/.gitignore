@@ -3,3 +3,7 @@
 /UnitAgent.class
 /Telegram.class
 /Message.class
+/Agent.class
+/StateMachine.class
+/State.class
+/MessageDispatcher.class
