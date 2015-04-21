@@ -16,3 +16,6 @@
 /State.class
 /MessageDispatcher.class
 >>>>>>> branch 'master' of https://github.com/loictessier/Projet-Multi-Agent-BWAPI-Java.git
+/Message$T.class
+/MessageDispatcher$message_type.class
+/Message$message_type.class
