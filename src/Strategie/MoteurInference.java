@@ -1,5 +1,12 @@
 package Strategie;
 
+import Regle1;
+import Regle2;
+import Regle3;
+import Regle4;
+import Regle5;
+import Regle6;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +19,16 @@ public class MoteurInference {
 	public MoteurInference(){
 		regles = new ArrayList<Regle>();
 		regles.add(new Regle1());
+		regles.add(new Regle1());
+		regles.add(new Regle2());
+		regles.add(new Regle3());
+		regles.add(new Regle4());
+		regles.add(new Regle5());
+		regles.add(new Regle6());
+		regles.add(new Regle7());
+		regles.add(new Regle8());
+		regles.add(new Regle9());
+		regles.add(new Regle10());
 	}
 	
 	public Strategie choixStrategie(){
