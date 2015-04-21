@@ -1,3 +1,4 @@
+package agents;
 import java.util.ArrayList;
 import strategie.MoteurInference;
 import strategie.Strategie;
@@ -5,18 +6,16 @@ import strategie.Strategie;
 import messaging.MessageDispatcher;
 
 
-import agents.AgentManager;
-import agents.UnitAgent;
 import bwapi.*;
 import bwta.BWTA;
 
 public class AgentControlleur extends DefaultBWListener {
-	ArrayList<UnitAgent> agents = new ArrayList<UnitAgent>();
-    private Mirror mirror = new Mirror();
+	public static ArrayList<UnitAgent> agents = new ArrayList<UnitAgent>();
+    public static Mirror mirror = new Mirror();
 
-    private Game game;
+    public static Game game;
 
-    private Player self;
+    public static Player self;
     
     private MoteurInference moteurInference = MoteurInference.GetInstance();
     private Strategie maStrategie = null;
@@ -51,17 +50,18 @@ public class AgentControlleur extends DefaultBWListener {
         BWTA.readMap();
         BWTA.analyze();
         System.out.println("Map data ready");
-        while(maStrategie == null)
+        /*while(maStrategie == null)
         {
         	moteurInference.choixStrategie();
         	maStrategie = moteurInference.maStrategie;
-        }
+        }*/
         
         for(Unit un : self.getUnits()) {
         	UnitAgent ua = new UnitAgent(un.getID(), un);
         	agents.add(ua);
         	AgentManager.Instance().RegisterEntity(ua);
         	ua.start();
+        	System.out.println("LOL");
         }
     }
 

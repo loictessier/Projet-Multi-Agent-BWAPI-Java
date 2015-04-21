@@ -53,12 +53,12 @@ public class UnitAgent extends Agent {
 	
 	private void cycleMessage() {
 		// Send message to friend each update
-        Mirror mirror = new Mirror();
-		Player self = mirror.getGame().self();
-		for(Unit un : self.getUnits()) {
+		Player self = AgentControlleur.self;
+		for(UnitAgent ua : AgentControlleur.agents) {
+			System.out.println(ua.ID());
 			MessageDispatcher.Instance().DispatchMessage(MessageDispatcher.SEND_MSG_IMMEDIATELY, //time delay
 				ID(),        								//ID of sender
-                un.getID(),            						//ID of recipient
+                ua.ID(),            						//ID of recipient
                 Message.message_type.Msg_MyPosition,   		//the message
                 m_pUnit.getPosition());
 		}
