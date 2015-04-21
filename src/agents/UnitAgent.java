@@ -55,7 +55,6 @@ public class UnitAgent extends Agent {
 		// Send message to friend each update
 		Player self = AgentControlleur.self;
 		for(UnitAgent ua : AgentControlleur.agents) {
-			System.out.println(ua.ID());
 			MessageDispatcher.Instance().DispatchMessage(MessageDispatcher.SEND_MSG_IMMEDIATELY, //time delay
 				ID(),        								//ID of sender
                 ua.ID(),            						//ID of recipient

@@ -50,11 +50,6 @@ public class AgentControlleur extends DefaultBWListener {
         BWTA.readMap();
         BWTA.analyze();
         System.out.println("Map data ready");
-        /*while(maStrategie == null)
-        {
-        	moteurInference.choixStrategie();
-        	maStrategie = moteurInference.maStrategie;
-        }*/
         
         for(Unit un : self.getUnits()) {
         	UnitAgent ua = new UnitAgent(un.getID(), un);
@@ -62,6 +57,13 @@ public class AgentControlleur extends DefaultBWListener {
         	AgentManager.Instance().RegisterEntity(ua);
         	ua.start();
         	System.out.println("LOL");
+        }
+        
+        while(maStrategie == null)
+        {
+        	moteurInference.choixStrategie();
+        	maStrategie = moteurInference.maStrategie;
+        	System.out.println();
         }
     }
 
