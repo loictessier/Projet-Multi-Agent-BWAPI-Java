@@ -7,17 +7,35 @@ import java.util.List;
 
 public class MoteurInference {
 	
+	private static MoteurInference Instance = new MoteurInference();
 	private List <Regle> regles;
+	public Strategie maStrategie = null;
 	
-	public MoteurInference(){
+	private MoteurInference(){
 		regles = new ArrayList<Regle>();
 		regles.add(new Regle1());
+		regles.add(new Regle1());
+		regles.add(new Regle2());
+		regles.add(new Regle3());
+		regles.add(new Regle4());
+		regles.add(new Regle5());
+		regles.add(new Regle6());
+		regles.add(new Regle7());
+		regles.add(new Regle8());
+		regles.add(new Regle9());
+		regles.add(new Regle10());
 	}
 	
-	public Strategie choixStrategie(){
+	public static MoteurInference GetInstance()
+	{
+		return Instance;
+	}
+	
+	public void choixStrategie(){
 		boolean regleActivable=true;
 		
-		while (regleActivable){
+		while (regleActivable)
+		{
 			Iterator<Regle> i = regles.iterator();
 			Regle tmp;
 			boolean val;
@@ -26,10 +44,14 @@ public class MoteurInference {
 			while(i.hasNext()){
 				tmp=(Regle) i.next();
 				if (tmp.canBeActivated()){
+					val=tmp.Activate();
+					regleActivable = updateActivationCondition(tmp.getNo(), val);
 					break;
 				}
 			}
 		}
+		
+		resetRegle();
 	}
 	
 	/**

@@ -1,6 +1,5 @@
 package Strategie;
 
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,6 +16,8 @@ public abstract class Regle {
 		requis=new ArrayList<Condition>();
 		this.no=no;
 	}
+	
+	abstract public boolean Activate();
 	
 	/**
 	 * Désactive la règle et réinitialise les conditions
