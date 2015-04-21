@@ -1,3 +1,6 @@
+package Agents;
+import Message;
+
 
 public class UnitAgent extends Agent {
 	//an instance of the state machine class

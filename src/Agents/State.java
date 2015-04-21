@@ -1,3 +1,6 @@
+package Agents;
+import Message;
+
 
 public abstract class State<T> {
 	//this will execute when the state is entered

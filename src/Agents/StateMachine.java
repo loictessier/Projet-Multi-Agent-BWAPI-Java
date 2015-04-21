@@ -1,3 +1,6 @@
+package Agents;
+import Message;
+
 
 public class StateMachine<T> {
 	//a pointer to the agent that owns this instance

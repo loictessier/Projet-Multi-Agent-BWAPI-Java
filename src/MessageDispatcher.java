@@ -1,5 +1,7 @@
 import java.util.LinkedHashSet;
 
+import Agents.Agent;
+
 
 public class MessageDispatcher {
 	//this class is a singleton

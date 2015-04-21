@@ -1,3 +1,6 @@
+package Agents;
+import Message;
+
 
 public abstract class Agent {
 	//every entity must have a unique identifying number
