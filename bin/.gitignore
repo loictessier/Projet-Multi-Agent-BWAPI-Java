@@ -1,8 +1,18 @@
 /TestBot1.class
 /AgentControlleur.class
+<<<<<<< HEAD
 /MoteurInference.class
 /Regle.class
 /Condition.class
 /Strategie.class
 /MoteurInference/
 /Strategie/
+=======
+/UnitAgent.class
+/Telegram.class
+/Message.class
+/Agent.class
+/StateMachine.class
+/State.class
+/MessageDispatcher.class
+>>>>>>> branch 'master' of https://github.com/loictessier/Projet-Multi-Agent-BWAPI-Java.git
