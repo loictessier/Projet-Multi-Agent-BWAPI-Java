@@ -1,3 +1,7 @@
+/**
+ * Definit strategie HitAndRun
+ */
+
 package Strategie;
 
 public class Regle10 extends Regle{
@@ -12,6 +16,8 @@ public class Regle10 extends Regle{
 	public boolean Activate()
 	{
 		Strategie HitAndRun = new HitAndRun();
+		MoteurInference moteur = MoteurInference.GetInstance();
+		moteur.maStrategie = HitAndRun;
 		return true;
 	}
 	

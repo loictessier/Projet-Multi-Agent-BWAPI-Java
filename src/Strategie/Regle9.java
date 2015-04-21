@@ -1,3 +1,6 @@
+/**
+ * Definit Strategie RetreatAndStand
+ */
 package Strategie;
 
 public class Regle9 extends Regle{
@@ -12,6 +15,8 @@ public class Regle9 extends Regle{
 	public boolean Activate()
 	{
 		Strategie RetreatAndStand = new RetreatAndStand();
+		MoteurInference moteur = MoteurInference.GetInstance();
+		moteur.maStrategie = RetreatAndStand;
 		return true;
 	}
 

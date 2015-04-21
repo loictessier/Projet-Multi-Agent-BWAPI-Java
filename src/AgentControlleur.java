@@ -1,3 +1,5 @@
+import Strategie.MoteurInference;
+import Strategie.Strategie;
 import bwapi.*;
 import bwta.BWTA;
 
@@ -8,6 +10,9 @@ public class AgentControlleur extends DefaultBWListener {
     private Game game;
 
     private Player self;
+    
+    private MoteurInference moteurInference = MoteurInference.GetInstance();
+    private Strategie maStrategie = null;
 
     public void run() {
         mirror.getModule().setEventListener(this);
@@ -30,6 +35,11 @@ public class AgentControlleur extends DefaultBWListener {
         BWTA.readMap();
         BWTA.analyze();
         System.out.println("Map data ready");
+        while(maStrategie == null)
+        {
+        	moteurInference.choixStrategie();
+        	maStrategie = moteurInference.maStrategie;
+        }
 
     }
 

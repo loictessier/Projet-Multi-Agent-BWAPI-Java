@@ -1,12 +1,5 @@
 package Strategie;
 
-import Regle1;
-import Regle2;
-import Regle3;
-import Regle4;
-import Regle5;
-import Regle6;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -14,9 +7,11 @@ import java.util.List;
 
 public class MoteurInference {
 	
+	private static MoteurInference Instance = new MoteurInference();
 	private List <Regle> regles;
+	public Strategie maStrategie = null;
 	
-	public MoteurInference(){
+	private MoteurInference(){
 		regles = new ArrayList<Regle>();
 		regles.add(new Regle1());
 		regles.add(new Regle1());
@@ -31,10 +26,16 @@ public class MoteurInference {
 		regles.add(new Regle10());
 	}
 	
-	public Strategie choixStrategie(){
+	public static MoteurInference GetInstance()
+	{
+		return Instance;
+	}
+	
+	public void choixStrategie(){
 		boolean regleActivable=true;
 		
-		while (regleActivable){
+		while (regleActivable)
+		{
 			Iterator<Regle> i = regles.iterator();
 			Regle tmp;
 			boolean val;
@@ -43,10 +44,14 @@ public class MoteurInference {
 			while(i.hasNext()){
 				tmp=(Regle) i.next();
 				if (tmp.canBeActivated()){
+					val=tmp.Activate();
+					regleActivable = updateActivationCondition(tmp.getNo(), val);
 					break;
 				}
 			}
 		}
+		
+		resetRegle();
 	}
 	
 	/**
