@@ -1,8 +1,6 @@
 package Agents;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
-import java.util.List;
-
 import Agents.Message.message_type;
 
 
@@ -39,8 +37,8 @@ public class MessageDispatcher {
 	//send a message to another agent. Receiving agent is referenced by ID.
 	public void DispatchMessage(double delay, int sender, int receiver, message_type msg, String ExtraInfo) {
 		//get pointers to the sender and receiver
-		Agent pSender   = EntityMgr->GetEntityFromID(sender);
-		Agent pReceiver = EntityMgr->GetEntityFromID(receiver);
+		Agent pSender   = AgentManager.Instance().GetEntityFromID(sender);
+		Agent pReceiver = AgentManager.Instance().GetEntityFromID(receiver);
 		 
 		//make sure the receiver is valid
 		if (pReceiver == null) {
@@ -85,7 +83,7 @@ public class MessageDispatcher {
 			Message message = iter.next();
 			
 			//find the recipient
-			Agent pReceiver = EntityMgr->GetEntityFromID(message.Receiver);
+			Agent pReceiver = AgentManager.Instance().GetEntityFromID(message.Receiver);
 			 
 			System.out.println("Queued telegram ready for dispatch: Sent to " + pReceiver.ID() + ". Msg is " + message);
 			 
