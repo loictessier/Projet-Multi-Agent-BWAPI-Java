@@ -44,29 +44,7 @@ public class AgentControlleur extends DefaultBWListener {
         for (Unit myUnit : self.getUnits()) {
             units.append(myUnit.getType()).append(" ").append(myUnit.getTilePosition()).append("\n");
 
-            //if there's enough minerals, train an SCV
-            if (myUnit.getType() == UnitType.Terran_Command_Center && self.minerals() >= 50) {
-                myUnit.train(UnitType.Terran_SCV);
-            }
-
-            //if it's a drone and it's idle, send it to the closest mineral patch
-            if (myUnit.getType().isWorker() && myUnit.isIdle()) {
-                Unit closestMineral = null;
-
-                //find the closest mineral
-                for (Unit neutralUnit : game.neutral().getUnits()) {
-                    if (neutralUnit.getType().isMineralField()) {
-                        if (closestMineral == null || myUnit.getDistance(neutralUnit) < myUnit.getDistance(closestMineral)) {
-                            closestMineral = neutralUnit;
-                        }
-                    }
-                }
-
-                //if a mineral patch was found, send the drone to gather it
-                if (closestMineral != null) {
-                    myUnit.gather(closestMineral, false);
-                }
-            }
+           
         }
 
         //draw my units on screen
