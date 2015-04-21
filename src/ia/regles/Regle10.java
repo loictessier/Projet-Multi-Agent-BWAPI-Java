@@ -2,7 +2,13 @@
  * Definit strategie HitAndRun
  */
 
-package strategie;
+package ia.regles;
+
+import ia.Condition;
+import ia.MoteurInference;
+import ia.Regle;
+import ia.Strategie;
+import ia.strategies.HitAndRun;
 
 public class Regle10 extends Regle{
 
@@ -15,6 +21,8 @@ public class Regle10 extends Regle{
 	@Override
 	public boolean Activate()
 	{
+		activated = true;
+		
 		Strategie HitAndRun = new HitAndRun();
 		MoteurInference moteur = MoteurInference.GetInstance();
 		moteur.maStrategie = HitAndRun;

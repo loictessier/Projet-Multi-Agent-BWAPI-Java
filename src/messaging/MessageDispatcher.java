@@ -56,7 +56,7 @@ public class MessageDispatcher {
 		   
 		//if there is no delay, route telegram immediately                       
 		if (delay <= 0.0f) {
-			System.out.println("Instant telegram dispatched by " + pSender.ID() + " for " + pReceiver.ID() + ". Msg is "+ msg);
+//			System.out.println("Instant telegram dispatched by " + pSender.ID() + " for " + pReceiver.ID() + ". Msg is "+ msg);
 			 
 			//send the telegram to the recipient
 			Discharge(pReceiver, message);
@@ -68,7 +68,7 @@ public class MessageDispatcher {
 			//and put it in the queue
 			PriorityQ.add(message);   
 			 
-			System.out.println("Delayed telegram from " + pSender.ID() + " for " + pReceiver.ID() + ". Msg is " + msg);             
+//			System.out.println("Delayed telegram from " + pSender.ID() + " for " + pReceiver.ID() + ". Msg is " + msg);             
 		}
 	}
 	 
@@ -90,7 +90,7 @@ public class MessageDispatcher {
 			//find the recipient
 			Agent pReceiver = AgentManager.Instance().GetEntityFromID(message.Receiver);
 			 
-			System.out.println("Queued telegram ready for dispatch: Sent to " + pReceiver.ID() + ". Msg is " + message);
+//			System.out.println("Queued telegram ready for dispatch: Sent to " + pReceiver.ID() + ". Msg is " + message);
 			 
 			//send the telegram to the recipient
 			Discharge(pReceiver, message);

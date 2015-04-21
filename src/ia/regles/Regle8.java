@@ -2,8 +2,11 @@
  * Verifie si le joueur ennemi a des unites de type Zelotes
  */
 
-package strategie;
+package ia.regles;
 
+import ia.Condition;
+import ia.Regle;
+import agents.AgentControlleur;
 import bwapi.*;
 
 public class Regle8 extends Regle{
@@ -15,9 +18,9 @@ public class Regle8 extends Regle{
 	
 	@Override
 	public boolean Activate(){
-		Mirror mirror= new Mirror();
-		Game game = mirror.getGame();
-		
+		activated = true;
+		Game game = AgentControlleur.game; 
+			
 		for(Unit un : game.enemy().getUnits()){
 			if(un.isVisible())
 			{

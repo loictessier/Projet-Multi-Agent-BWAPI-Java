@@ -5,7 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import stateMachine.StateMachine;
-import stateMachine.states.StandBy;
+import stateMachine.states.StandByState;
 
 import messaging.Message;
 import messaging.MessageDispatcher;
@@ -24,7 +24,7 @@ public class UnitAgent extends Agent {
 		//set up state machine
 	    m_pStateMachine = new StateMachine<UnitAgent>(this);
 	     
-	    m_pStateMachine.SetCurrentState(new StandBy());
+	    m_pStateMachine.SetCurrentState(new StandByState());
 	}
 
 	@Override
@@ -55,7 +55,6 @@ public class UnitAgent extends Agent {
 	
 	private void cycleMessage() {
 		// Send message to friend each update
-		Player self = AgentControlleur.self;
 		Random random = new Random();
 		int pif = random.nextInt(4);
 		for(UnitAgent ua : AgentControlleur.agents) {
@@ -68,5 +67,9 @@ public class UnitAgent extends Agent {
                 	m_pUnit.getPosition());
 			}
 		}
+	}
+	
+	public Unit getUnit() {
+		return m_pUnit;
 	}
 }

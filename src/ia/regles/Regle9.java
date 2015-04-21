@@ -1,7 +1,13 @@
 /**
  * Definit Strategie RetreatAndStand
  */
-package strategie;
+package ia.regles;
+
+import ia.Condition;
+import ia.MoteurInference;
+import ia.Regle;
+import ia.Strategie;
+import ia.strategies.RetreatAndStand;
 
 public class Regle9 extends Regle{
 
@@ -14,6 +20,9 @@ public class Regle9 extends Regle{
 	@Override
 	public boolean Activate()
 	{
+		activated = true;
+		
+		
 		Strategie RetreatAndStand = new RetreatAndStand();
 		MoteurInference moteur = MoteurInference.GetInstance();
 		moteur.maStrategie = RetreatAndStand;

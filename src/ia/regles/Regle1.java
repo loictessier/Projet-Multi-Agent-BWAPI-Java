@@ -1,8 +1,10 @@
 /**
  * Verifie si le joueur controle par Bwapi est Protoss
  */
-package strategie;
+package ia.regles;
 
+import ia.Regle;
+import agents.AgentControlleur;
 import bwapi.*;
 
 public class Regle1 extends Regle{
@@ -13,11 +15,11 @@ public class Regle1 extends Regle{
 	
 	@Override
 	public boolean Activate(){
+		activated =true;
 		
-		Mirror mirror= new Mirror();
-		Game game = mirror.getGame();
+		Player self = AgentControlleur.self; 
 		
-		if(game.self().getRace().c_str().equals(Race.Protoss.c_str()))
+		if(self.getRace().c_str().equals(Race.Protoss.c_str()))
 		{
 			return true;
 		}

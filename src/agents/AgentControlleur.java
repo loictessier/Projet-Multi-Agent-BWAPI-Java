@@ -1,7 +1,8 @@
 package agents;
+import ia.MoteurInference;
+import ia.Strategie;
+
 import java.util.ArrayList;
-import strategie.MoteurInference;
-import strategie.Strategie;
 
 import messaging.MessageDispatcher;
 
@@ -12,6 +13,7 @@ import bwta.BWTA;
 public class AgentControlleur extends DefaultBWListener {
 	public static ArrayList<UnitAgent> agents = new ArrayList<UnitAgent>();
     public static Mirror mirror = new Mirror();
+    private static int m_ID = -1;
 
     public static Game game;
 
@@ -23,15 +25,6 @@ public class AgentControlleur extends DefaultBWListener {
     public void run() {
         mirror.getModule().setEventListener(this);
         mirror.startGame();
-        
-        // Update
-        while(!game.isPaused() && game.isInGame()) {
-        	for(UnitAgent ua : agents)
-        		ua.Update();
-         
-            //dispatch any delayed messages
-            MessageDispatcher.Instance().DispatchDelayedMessages();
-        }
 	}
 
     @Override
@@ -41,6 +34,7 @@ public class AgentControlleur extends DefaultBWListener {
 
     @Override
     public void onStart() {
+    	this.maStrategie = null;
         game = mirror.getGame();
         self = game.self();
 
@@ -51,26 +45,29 @@ public class AgentControlleur extends DefaultBWListener {
         BWTA.analyze();
         System.out.println("Map data ready");
         
+        
+        while(maStrategie == null)
+        {
+        	moteurInference.choixStrategie();
+        	this.maStrategie = moteurInference.maStrategie;
+        }
+        
         for(Unit un : self.getUnits()) {
         	UnitAgent ua = new UnitAgent(un.getID(), un);
         	agents.add(ua);
         	AgentManager.Instance().RegisterEntity(ua);
         	ua.start();
         }
-        
-        while(maStrategie == null)
-        {
-        	moteurInference.choixStrategie();
-        	maStrategie = moteurInference.maStrategie;
-        }
-        
-        System.out.println("LOL");
     }
 
     @Override
     public void onFrame() {
         game.setTextSize(10);
         game.drawTextScreen(10, 10, "Playing as " + self.getName() + " - " + self.getRace());
+        
+        if(maStrategie != null){
+        	 game.drawTextScreen(10,100,"La strategie est "+maStrategie);
+        }
 
         StringBuilder units = new StringBuilder("My units:\n");
 
@@ -83,9 +80,21 @@ public class AgentControlleur extends DefaultBWListener {
 
         //draw my units on screen
         game.drawTextScreen(10, 25, units.toString());
+        
+        maStrategie.run();
+        
+        for(UnitAgent ua : agents)
+    		ua.Update();
+     
+        //dispatch any delayed messages
+        MessageDispatcher.Instance().DispatchDelayedMessages();
     }
 
     public static void main(String[] args) {
         new AgentControlleur().run();
+    }
+    
+    public static int ID() {
+    	return m_ID;
     }
 }
