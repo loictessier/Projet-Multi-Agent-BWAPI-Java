@@ -1,10 +1,17 @@
-import Strategie.MoteurInference;
-import Strategie.Strategie;
+import java.util.ArrayList;
+import strategie.MoteurInference;
+import strategie.Strategie;
+
+import messaging.MessageDispatcher;
+
+
+import agents.AgentManager;
+import agents.UnitAgent;
 import bwapi.*;
 import bwta.BWTA;
 
 public class AgentControlleur extends DefaultBWListener {
-
+	ArrayList<UnitAgent> agents = new ArrayList<UnitAgent>();
     private Mirror mirror = new Mirror();
 
     private Game game;
@@ -13,11 +20,20 @@ public class AgentControlleur extends DefaultBWListener {
     
     private MoteurInference moteurInference = MoteurInference.GetInstance();
     private Strategie maStrategie = null;
-
+    
     public void run() {
         mirror.getModule().setEventListener(this);
         mirror.startGame();
-    }
+        
+        // Update
+        while(!game.isPaused() && game.isInGame()) {
+        	for(UnitAgent ua : agents)
+        		ua.Update();
+         
+            //dispatch any delayed messages
+            MessageDispatcher.Instance().DispatchDelayedMessages();
+        }
+	}
 
     @Override
     public void onUnitCreate(Unit unit) {
@@ -40,7 +56,13 @@ public class AgentControlleur extends DefaultBWListener {
         	moteurInference.choixStrategie();
         	maStrategie = moteurInference.maStrategie;
         }
-
+        
+        for(Unit un : self.getUnits()) {
+        	UnitAgent ua = new UnitAgent(un.getID(), un);
+        	agents.add(ua);
+        	AgentManager.Instance().RegisterEntity(ua);
+        	ua.start();
+        }
     }
 
     @Override
