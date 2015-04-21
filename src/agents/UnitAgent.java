@@ -1,5 +1,6 @@
 package agents;
 
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,6 +14,7 @@ import bwapi.*;
 
 public class UnitAgent extends Agent {
 	//an instance of the state machine class
+	// abdou est une putain de machine !!
 	private StateMachine<UnitAgent> m_pStateMachine;
 	private Unit m_pUnit;
 	
@@ -48,18 +50,23 @@ public class UnitAgent extends Agent {
     	    public void run() {
     	        cycleMessage();
     	     }
-    	  }, 0, 5000);
+    	  }, 0, 10000);
 	}
 	
 	private void cycleMessage() {
 		// Send message to friend each update
 		Player self = AgentControlleur.self;
+		Random random = new Random();
+		int pif = random.nextInt(4);
 		for(UnitAgent ua : AgentControlleur.agents) {
-			MessageDispatcher.Instance().DispatchMessage(MessageDispatcher.SEND_MSG_IMMEDIATELY, //time delay
-				ID(),        								//ID of sender
-                ua.ID(),            						//ID of recipient
-                Message.message_type.Msg_MyPosition,   		//the message
-                m_pUnit.getPosition());
+			if(ua.ID()==pif) {
+				//System.out.println(ua.m_pUnit.);
+				MessageDispatcher.Instance().DispatchMessage(MessageDispatcher.SEND_MSG_IMMEDIATELY, //time delay
+					ID(),        								//ID of sender
+					ua.ID(),            						//ID of recipient
+                	Message.message_type.Msg_MyPosition,   		//the message
+                	m_pUnit.getPosition());
+			}
 		}
 	}
 }

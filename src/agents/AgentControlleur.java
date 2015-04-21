@@ -56,15 +56,15 @@ public class AgentControlleur extends DefaultBWListener {
         	agents.add(ua);
         	AgentManager.Instance().RegisterEntity(ua);
         	ua.start();
-        	System.out.println("LOL");
         }
         
         while(maStrategie == null)
         {
         	moteurInference.choixStrategie();
         	maStrategie = moteurInference.maStrategie;
-        	System.out.println();
         }
+        
+        System.out.println("LOL");
     }
 
     @Override
