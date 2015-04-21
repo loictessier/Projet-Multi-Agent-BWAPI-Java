@@ -21,6 +21,8 @@ public class Regle10 extends Regle{
 	@Override
 	public boolean Activate()
 	{
+		activated = true;
+		
 		Strategie HitAndRun = new HitAndRun();
 		MoteurInference moteur = MoteurInference.GetInstance();
 		moteur.maStrategie = HitAndRun;

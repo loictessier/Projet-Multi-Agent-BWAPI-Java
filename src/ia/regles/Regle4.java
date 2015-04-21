@@ -5,6 +5,7 @@
 package ia.regles;
 
 import ia.Regle;
+import agents.AgentControlleur;
 import bwapi.Game;
 import bwapi.Mirror;
 import bwapi.Race;
@@ -17,8 +18,9 @@ public class Regle4 extends Regle{
 	
 	@Override
 	public boolean Activate(){
-		Mirror mirror= new Mirror();
-		Game game = mirror.getGame();
+		activated =true;
+		
+		Game game = AgentControlleur.game; 
 		
 		if(game.enemy().getRace().c_str().equals(Race.Protoss.c_str()))
 		{

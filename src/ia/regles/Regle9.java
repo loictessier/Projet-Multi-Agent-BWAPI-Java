@@ -20,6 +20,9 @@ public class Regle9 extends Regle{
 	@Override
 	public boolean Activate()
 	{
+		activated = true;
+		
+		
 		Strategie RetreatAndStand = new RetreatAndStand();
 		MoteurInference moteur = MoteurInference.GetInstance();
 		moteur.maStrategie = RetreatAndStand;

@@ -5,6 +5,7 @@
 package ia.regles;
 
 import ia.Regle;
+import agents.AgentControlleur;
 import bwapi.*;
 
 public class Regle3 extends Regle{
@@ -15,8 +16,11 @@ public class Regle3 extends Regle{
 	
 	@Override
 	public boolean Activate(){
-		Mirror mirror= new Mirror();
-		Game game = mirror.getGame();
+		activated =true;
+//		Mirror mirror= new Mirror();
+//		Game game = mirror.getGame();
+		
+		Game game = AgentControlleur.game; 
 		
 		if(game.enemy().getRace().c_str().equals(Race.Zerg.c_str()))
 		{

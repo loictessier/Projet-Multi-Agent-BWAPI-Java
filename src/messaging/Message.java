@@ -5,6 +5,7 @@ public class Message {
 	public static enum message_type {
 		Msg_MyPosition("MyPosition"),
 		Msg_Attack("Attack"),
+		Msg_GoToPosition("Go to Position"),
 		Msg_NotRecognized("Not recognized!");
 		  
 		private String s;

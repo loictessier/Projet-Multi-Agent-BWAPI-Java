@@ -1,10 +1,15 @@
 package ia;
 
 public abstract class Strategie {
-	
-	 public void run() {
-		
-	 }
-	 
-	 
+
+	protected String nom;
+
+	public abstract void run();
+
+	@Override
+	public String toString(){ 
+		return this.nom;	 
+	}
+
+
 }
