@@ -1,4 +1,4 @@
-package strategie;
+package ia;
 
 public abstract class Strategie {
 	

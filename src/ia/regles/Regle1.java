@@ -1,8 +1,9 @@
 /**
  * Verifie si le joueur controle par Bwapi est Protoss
  */
-package strategie;
+package ia.regles;
 
+import ia.Regle;
 import bwapi.*;
 
 public class Regle1 extends Regle{

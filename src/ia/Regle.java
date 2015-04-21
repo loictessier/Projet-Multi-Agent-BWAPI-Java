@@ -1,4 +1,4 @@
-package strategie;
+package ia;
 
 import java.util.ArrayList;
 import java.util.Iterator;

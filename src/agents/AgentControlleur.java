@@ -1,7 +1,8 @@
 package agents;
+import ia.MoteurInference;
+import ia.Strategie;
+
 import java.util.ArrayList;
-import strategie.MoteurInference;
-import strategie.Strategie;
 
 import messaging.MessageDispatcher;
 

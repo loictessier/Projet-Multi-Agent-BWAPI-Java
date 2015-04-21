@@ -2,8 +2,9 @@
  * Verifie sir le joueur controle par Bwapi est Terran
  */
 
-package strategie;
+package ia.regles;
 
+import ia.Regle;
 import bwapi.*;
 
 public class Regle2 extends Regle{

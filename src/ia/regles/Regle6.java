@@ -2,8 +2,10 @@
  * Verifie si le joueur dispose d'unites de type Marines
  */
 
-package strategie;
+package ia.regles;
 
+import ia.Condition;
+import ia.Regle;
 import bwapi.*;
 
 public class Regle6 extends Regle{

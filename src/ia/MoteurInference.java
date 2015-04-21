@@ -1,8 +1,20 @@
-package strategie;
+package ia;
+
+import ia.regles.Regle1;
+import ia.regles.Regle10;
+import ia.regles.Regle2;
+import ia.regles.Regle3;
+import ia.regles.Regle4;
+import ia.regles.Regle5;
+import ia.regles.Regle6;
+import ia.regles.Regle7;
+import ia.regles.Regle8;
+import ia.regles.Regle9;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 
 
 public class MoteurInference {

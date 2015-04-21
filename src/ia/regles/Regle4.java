@@ -2,8 +2,9 @@
  * Verifie si le joueur ennemi est Protoss
  */
 
-package strategie;
+package ia.regles;
 
+import ia.Regle;
 import bwapi.Game;
 import bwapi.Mirror;
 import bwapi.Race;

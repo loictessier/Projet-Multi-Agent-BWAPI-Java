@@ -1,4 +1,4 @@
-package strategie;
+package ia;
 /**
  * Représente une condition d'activation
  * @author UQAC

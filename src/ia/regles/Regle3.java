@@ -2,8 +2,9 @@
  * Verifie si le joueur ennemi est Zerg
  */
 
-package strategie;
+package ia.regles;
 
+import ia.Regle;
 import bwapi.*;
 
 public class Regle3 extends Regle{
