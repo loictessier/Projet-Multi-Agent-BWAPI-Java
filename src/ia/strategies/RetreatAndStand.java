@@ -2,6 +2,10 @@ package ia.strategies;
 
 import ia.Strategie;
 
+/**
+ * Stratégie de repli
+ *
+ */
 public class RetreatAndStand extends Strategie{
 
 	public RetreatAndStand(){
@@ -9,8 +13,7 @@ public class RetreatAndStand extends Strategie{
 	}
 	
 	@Override
-	public void run() {
-		// TODO Auto-generated method stub
+	public void run() {		
 		
 	}
 

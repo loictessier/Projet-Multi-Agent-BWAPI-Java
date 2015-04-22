@@ -7,7 +7,6 @@ package ia.regles;
 import ia.Regle;
 import agents.AgentControlleur;
 import bwapi.Game;
-import bwapi.Mirror;
 import bwapi.Race;
 
 public class Regle4 extends Regle{

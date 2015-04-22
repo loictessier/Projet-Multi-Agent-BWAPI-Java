@@ -23,7 +23,7 @@ public abstract class Regle {
 	 */
 	public void Desactive(){
 		activated=false;
-		Iterator it = requis.iterator();
+		Iterator<Condition> it = requis.iterator();
 	    while (it.hasNext()) {
 	    	((Condition)it.next()).reset();
 	    }
@@ -34,7 +34,7 @@ public abstract class Regle {
 	 * @return
 	 */
 	public boolean canBeActivated(){
-		Iterator it = requis.iterator();
+		Iterator<Condition> it = requis.iterator();
 	    while (it.hasNext()) {
 	    	if (((Condition)it.next()).isRespecte()==false)
 	    		return false;
@@ -52,7 +52,7 @@ public abstract class Regle {
 	 * @param val Valeur booleene
 	 */
 	public void updateRequis(int no, boolean val){
-		Iterator it = requis.iterator();
+		Iterator<Condition> it = requis.iterator();
 		Condition tmp;
 	    while (it.hasNext()) {
 	    	tmp=(Condition) it.next();

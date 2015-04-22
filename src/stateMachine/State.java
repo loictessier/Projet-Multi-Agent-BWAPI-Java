@@ -2,18 +2,21 @@ package stateMachine;
 
 import messaging.Message;
 
-
+/**
+ * Etat selon le design pattern State
+ *
+ * @param <T>
+ */
 public abstract class State<T> {
-	//this will execute when the state is entered
+	// A l'entré de l'état
 	public abstract void Enter(T agent);
 		 
-	//this is the states normal update function
+	// Excution de l'état a chaque tour
 	public abstract void Execute(T agent);
 		 
-	//this will execute when the state is exited. 
+	// QUand on sort de l'état
 	public abstract void Exit(T agent);
 		 
-	//this executes if the agent receives a message from the 
-	//message dispatcher
+	// Quand l'agent recoit un message
 	public abstract boolean OnMessage(T agent, final Message message);
 }

@@ -12,35 +12,47 @@ import messaging.MessageDispatcher;
 
 import bwapi.*;
 
+/**
+ * Agent unité qui est un thread
+ *
+ */
 public class UnitAgent extends Agent {
-	//an instance of the state machine class
+	// Une instance de la machine a etats
 	// abdou est une putain de machine !!
 	private StateMachine<UnitAgent> m_pStateMachine;
 	private Unit m_pUnit;
 	
+	/**
+	 * Constructeur
+	 * @param id
+	 * @param unit
+	 */
 	public UnitAgent(int id, Unit unit) {
 		super(id);
 		m_pUnit = unit;
-		//set up state machine
 	    m_pStateMachine = new StateMachine<UnitAgent>(this);
-	     
 	    m_pStateMachine.SetCurrentState(new StandByState());
 	}
 
+	/**
+	 * Mis à jour de l'agent par la machine a etat
+	 */
 	@Override
 	public void Update() {	   
 		m_pStateMachine.Update();
 	}
 
+	/**
+	 * Gestion des messages par la mahine a etats
+	 */
 	@Override
 	public boolean HandleMessage(Message msg) {
 		return m_pStateMachine.HandleMessage(msg);
 	}
 
-	public StateMachine<UnitAgent> GetFSM() {
-		return m_pStateMachine;
-	}
-
+	/**
+	 * Lancement d'un timer qui envoie un message toutes les 10 secondes
+	 */
 	@Override
 	public void run() {
 		super.run();
@@ -53,6 +65,9 @@ public class UnitAgent extends Agent {
     	  }, 0, 10000);
 	}
 	
+	/**
+	 * Message contenant la position de l'agent envoyé aléatoirement  toutes les 10 secondes
+	 */
 	private void cycleMessage() {
 		// Send message to friend each update
 		Random random = new Random();
@@ -67,6 +82,10 @@ public class UnitAgent extends Agent {
                 	m_pUnit.getPosition());
 			}
 		}
+	}
+	
+	public StateMachine<UnitAgent> GetFSM() {
+		return m_pStateMachine;
 	}
 	
 	public Unit getUnit() {

@@ -2,16 +2,20 @@ package stateMachine;
 
 import messaging.Message;
 
-
+/**
+ * Machine a etats
+ *
+ * @param <T>
+ */
 public class StateMachine<T> {
-	//a pointer to the agent that owns this instance
+	// Proprietaire de la machine a etats
 	private T          m_pOwner;	 
 	private State<T>   m_pCurrentState;
 	
-	//a record of the last state the agent was in
+	// Etat precedent
 	private State<T>   m_pPreviousState;
 		 
-	//this is called every time the FSM is updated
+	// Etat global
 	private State<T>   m_pGlobalState;
 		   
 	public StateMachine(T owner)
@@ -22,7 +26,7 @@ public class StateMachine<T> {
 		m_pGlobalState = null;
 	}
 		 
-	//use these methods to initialize the FSM
+	// Initialise l'etat
 	public void SetCurrentState(State<T> s) {
 		m_pCurrentState = s;
 	}
@@ -35,27 +39,28 @@ public class StateMachine<T> {
 		m_pPreviousState = s;
 	}
 		   
-	//call this to update the FSM
+	// Mis a jour de la machine a etat
 	public void Update() {
-	    //if a global state exists, call its execute method, else do nothing
 	    if(m_pGlobalState != null)
 	    	m_pGlobalState.Execute(m_pOwner);
 	 
-	    //same for the current state
+	    // Execution de l'etat courant
 	    if (m_pCurrentState != null)
     		m_pCurrentState.Execute(m_pOwner);
     }
-		 
+	
+	/**
+	 * Gestion des messages de l'agent
+	 * @param msg
+	 * @return
+	 */
 	public boolean HandleMessage(final Message msg) {
-		//first see if the current state is valid and that it can handle
-	    //the message
-	    if (m_pCurrentState != null && m_pCurrentState.OnMessage(m_pOwner, msg))
-	    {
+		// Gestion des messages effective ?
+	    if (m_pCurrentState != null && m_pCurrentState.OnMessage(m_pOwner, msg)) {
 	      return true;
 	    }
 	   
-	    //if not, and if a global state has been implemented, send 
-	    //the message to the global state
+	    // Gestion des messages par un etat global effective ?
 	    if (m_pGlobalState != null && m_pGlobalState.OnMessage(m_pOwner, msg))
 	    {
 	      return true;
@@ -64,30 +69,29 @@ public class StateMachine<T> {
 	    return false;
 	}
 		 
-	//change to a new state
+	// Changement d'etat
 	public void  ChangeState(State<T> pNewState) {
 		assert pNewState != null : "<StateMachine::ChangeState>:trying to assign null state to current";
 		 
-	    //keep a record of the previous state
+	    // Ancien etat sauvé
 	    m_pPreviousState = m_pCurrentState;
 		 
-	    //call the exit method of the existing state
+	    // On sort de l'état courant
 	    m_pCurrentState.Exit(m_pOwner);
 		 
-	    //change state to the new state
+	    // On met a jour l'etat courant
 	    m_pCurrentState = pNewState;
 		 
-	    //call the entry method of the new state
+	    // ON entre dans le nouvel etat
 	    m_pCurrentState.Enter(m_pOwner);
     }
 		 
-	//change state back to the previous state
+	// Retour a l'etat precedent
 	public void  RevertToPreviousState() {
 		ChangeState(m_pPreviousState);
     }
 		 
-	//returns true if the current state's type is equal to the type of the
-	//class passed as a parameter. 
+	// Test si on dans l'etat demandé
 	public boolean isInState(final State<T> st) {
 		if (m_pCurrentState.getClass().getSimpleName() == st.getClass().getSimpleName())
 			return true;

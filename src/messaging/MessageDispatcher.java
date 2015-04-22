@@ -7,23 +7,21 @@ import messaging.Message.message_type;
 import agents.Agent;
 import agents.AgentManager;
 
-
-
-
 public class MessageDispatcher {	
 	public static final double SEND_MSG_IMMEDIATELY = 0.0f;
 	public static final int NO_ADDITIONAL_INFO   = 0;
 	public static final int SENDER_ID_IRRELEVANT = -1;
 	private static MessageDispatcher INSTANCE = new MessageDispatcher();
 	
-	//a LinkedHashSet is used as the container for the delayed messages
-	//because of the benefit of automatic sorting and avoidance
-	//of duplicates. Messages are sorted by their dispatch time.
+	// Liste ne contenant pas de doublon et trié par ordre d'arrivé
 	private LinkedHashSet<Message> PriorityQ = new LinkedHashSet<Message>();
 	 
-	//this method is utilized by DispatchMessage or DispatchDelayedMessages.
-	//This method calls the message handling member function of the receiving
-	//entity, pReceiver, with the newly created telegram
+	// singleton
+	public static MessageDispatcher Instance() {
+		return INSTANCE;
+	}
+	
+	// Distribue le message au receveur
 	private void Discharge(Agent pReceiver, final Message msg) {
 		if (!pReceiver.HandleMessage(msg))
 		{
@@ -31,71 +29,64 @@ public class MessageDispatcher {
 			System.out.println("Message not handled");
 		}
 	}
-	 
-	private MessageDispatcher() {}
-	 
-	//this class is a singleton
-	public static MessageDispatcher Instance() {
-		return INSTANCE;
-	}
 	
-	//send a message to another agent. Receiving agent is referenced by ID.
+	private MessageDispatcher() {}
+	
+	/**
+	 * Envoie un message
+	 * @param delay
+	 * @param sender
+	 * @param receiver
+	 * @param msg
+	 * @param ExtraInfo
+	 */
 	public void DispatchMessage(double delay, int sender, int receiver, message_type msg, Object ExtraInfo) {
-		//get pointers to the sender and receiver
-		Agent pSender   = AgentManager.Instance().GetEntityFromID(sender);
+		// Recuperation des agents
 		Agent pReceiver = AgentManager.Instance().GetEntityFromID(receiver);
 		 
-		//make sure the receiver is valid
+		// Verifie le receveur
 		if (pReceiver == null) {
 			System.out.println("Warning! No Receiver with ID of " + receiver + " found");
 			return;
 		}
 
-		//create the telegram
+		// Creation du message
 		Message message = new Message(0, sender, receiver, msg, ExtraInfo);
 		   
-		//if there is no delay, route telegram immediately                       
+		// Message sans délai                   
 		if (delay <= 0.0f) {
-//			System.out.println("Instant telegram dispatched by " + pSender.ID() + " for " + pReceiver.ID() + ". Msg is "+ msg);
-			 
-			//send the telegram to the recipient
+			//Envoie du message
 			Discharge(pReceiver, message);
-		} else { 			//else calculate the time when the telegram should be dispatched
+		} else { 			// Sinon calcul du moment ou le message sera envoyé
 			double CurrentTime = System.nanoTime();
-			 
 			message.DispatchTime = CurrentTime + delay;
 			 
-			//and put it in the queue
-			PriorityQ.add(message);   
-			 
-//			System.out.println("Delayed telegram from " + pSender.ID() + " for " + pReceiver.ID() + ". Msg is " + msg);             
+			// Insertion dans la liste
+			PriorityQ.add(message);        
 		}
 	}
 	 
-	//send out any delayed messages. This method is called each time through   
-	//the main game loop.
+	/**
+	 * Envoi des messages avec délai
+	 */
 	public void DispatchDelayedMessages() {
-		//get current time
+		// Recuperation du temps atuel
 		double CurrentTime = System.nanoTime();
 		 
-		//now peek at the queue to see if any telegrams need dispatching.
-		//remove all telegrams from the front of the queue that have gone
-		//past their sell by date
+		//Suppression des messages avec un délai dépassé
 		Iterator<Message> iter = PriorityQ.iterator();
 		while( !PriorityQ.isEmpty() && (((Message[])PriorityQ.toArray())[0].DispatchTime < CurrentTime) 
 				&& (((Message[])PriorityQ.toArray())[0].DispatchTime > 0) ) {
-			//read the telegram from the front of the queue
+			// Recuperation du premier message
 			Message message = iter.next();
 			
-			//find the recipient
+			// Receveur
 			Agent pReceiver = AgentManager.Instance().GetEntityFromID(message.Receiver);
-			 
-//			System.out.println("Queued telegram ready for dispatch: Sent to " + pReceiver.ID() + ". Msg is " + message);
-			 
-			//send the telegram to the recipient
+		
+			// Envoie du message
 			Discharge(pReceiver, message);
 			 
-			//remove it from the queue
+			// Suppression de la liste
 			iter.remove();
 		}
 	}

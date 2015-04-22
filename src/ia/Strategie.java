@@ -1,9 +1,15 @@
 package ia;
 
-public abstract class Strategie {
+/**
+ * Stratégie appliqué par les unités
+ *
+ */
 
+public abstract class Strategie {
+	// Nom de la stratégie
 	protected String nom;
 
+	// Fonction d'éxecution de la stratégie
 	public abstract void run();
 
 	@Override
